@@ -1,6 +1,6 @@
 # AIBOX
 
-一个基于 Flutter 的三端内容聚合客户端，用来统一管理影视、小说和漫画来源，并在本地完成搜索、阅读、播放、下载、弹幕、规则编辑与插件扩展。
+一个基于 Flutter 的三端内容聚合客户端，用来统一管理影视、小说和漫画来源，并在本地完成搜索、阅读、播放、下载、弹幕、规则编辑与插件扩展。配合公开的 [aibox-drpy-source](https://github.com/yunwuee/aibox-drpy-source) AI Skill，还可以让 AI 按真实站点证据创建、修复和验收自己的内容源。
 
 AIBOX 运行在 Android、Windows 和 iOS 上。它不是一个固定内容站，也不会替用户提供某个特定站点的长期可用性；应用展示的内容、媒体地址和规则，取决于用户配置的来源、规则作者以及上游服务的状态。
 
@@ -14,6 +14,7 @@ AIBOX 运行在 Android、Windows 和 iOS 上。它不是一个固定内容站�
 - [下载与安装](#下载与安装)
 - [AIBOX 能做什么](#aibox-能做什么)
 - [影视、小说与漫画](#影视小说与漫画)
+- [用 AI 写源：影视、小说与漫画一网打尽](#用-ai-写源影视小说与漫画一网打尽)
 - [播放器](#播放器)
 - [弹幕系统](#弹幕系统)
 - [字幕与本地 OCR](#字幕与本地-ocr)
@@ -28,15 +29,15 @@ AIBOX 运行在 Android、Windows 和 iOS 上。它不是一个固定内容站�
 
 ## 下载与安装
 
-所有正式包都在 [Releases](https://github.com/yunwuee/AIBOX-public/releases) 发布。当前公开版本为 [v0.1.27](https://github.com/yunwuee/AIBOX-public/releases/tag/v0.1.27)。每个版本的更新内容、构建时间和文件校验信息以对应 Release 页面为准。
+所有正式包都在 [Releases](https://github.com/yunwuee/AIBOX-public/releases) 发布，请从 [最新版下载页](https://github.com/yunwuee/AIBOX-public/releases/latest) 获取当前版本。每个版本的更新内容、构建时间和文件校验信息以对应 Release 页面为准。
 
 | 平台 | 发布文件 | 选择建议 |
 | --- | --- | --- |
-| Android | `android-arm64-v8a.apk` | 绝大多数现代 64 位手机优先使用此包。 |
-| Android | `android-armeabi-v7a.apk` | 仅用于仍为 32 位 ARM ABI 的旧设备。 |
-| Android | `android-x86_64.apk` | 用于 Android 模拟器或 x86_64 设备，不适合普通 ARM 手机。 |
-| Windows | `windows-setup.exe` | Windows 安装包，安装时可选择 AIBOX 数据位置。 |
-| iOS | `ios-unsigned.ipa` | 未签名 IPA，需要用户自行签名或使用相应安装工具。 |
+| Android | `AIBOX-v<版本>-android-arm64-v8a.apk` | 绝大多数现代 64 位手机优先使用此包。 |
+| Android | `AIBOX-v<版本>-android-armeabi-v7a.apk` | 仅用于仍为 32 位 ARM ABI 的旧设备。 |
+| Android | `AIBOX-v<版本>-android-x86_64.apk` | 用于 Android 模拟器或 x86_64 设备，不适合普通 ARM 手机。 |
+| Windows | `AIBOX-v<版本>-windows-setup.exe` | Windows 安装包，安装时可选择 AIBOX 数据位置。 |
+| iOS | `AIBOX-v<版本>-ios-unsigned.ipa` | 未签名 IPA，需要用户自行签名或使用相应安装工具。 |
 
 ### Android
 
@@ -61,6 +62,7 @@ AIBOX 运行在 Android、Windows 和 iOS 上。它不是一个固定内容站�
 | 影视 | 多源首页、分类、搜索、详情、多线路、多分集、播放、历史和收藏。 |
 | 小说 | 书源管理、搜索、详情、目录、阅读进度、书架和章节下载。 |
 | 漫画 | 漫画源管理、搜索、详情、目录、阅读器、阅读进度和图集下载。 |
+| AI 写源 | 配合公开 Skill，按真实页面或 API 证据生成、修复并验收影视、小说、漫画及磁力/BT DS 源。 |
 | 播放器 | HLS/m3u8、MP4、带请求头媒体、本地视频、倍速、全屏、画中画（平台支持时）、字幕、弹幕和硬解回退。 |
 | 规则 | 导入、分组、启停、排序、编辑、调试、分享和在线写源。 |
 | 浏览器 | 内置网页浏览器、媒体请求监听、视频嗅探、播放和下载。 |
@@ -78,6 +80,77 @@ AIBOX 将三类内容分成独立模块，每个模块可以使用自己的来�
 - **仓库**：收藏、观看历史、阅读历史、继续浏览和已下载内容。
 
 来源可以启用、停用、分组、排序和单独刷新。导入或编辑规则后，AIBOX 会刷新相应的索引；如果上游站点改版，规则可能暂时失效，可以在源管理器中重新编辑、替换或停用该来源。
+
+## 用 AI 写源：影视、小说与漫画一网打尽
+
+AIBOX 不只是播放器，也是 DS 源的运行、管理、调试和真机验收环境。公开项目 [yunwuee/aibox-drpy-source](https://github.com/yunwuee/aibox-drpy-source) 则把写源知识、规则语法、诊断流程和配套 CLI 封装成 AI Skill，让 Codex 或其他支持 `SKILL.md` 的 Agent 可以根据真实页面或接口证据生成和修复源。
+
+两者配合后的工作流是：
+
+```text
+目标网站或 API
+    -> AI 获取真实响应并判断站型
+    -> 生成单文件 DS 源（var rule = { ... }）
+    -> 完成 L1 / L2 / L3 验收
+    -> 导入 AIBOX 并选择内容分组
+    -> 在手机或电脑上播放、阅读和继续调试
+```
+
+> AIBOX 与 Skill 都不分发可直接使用的第三方站点源。用户需要提供自己有权访问和测试的目标；Skill 负责帮助分析和编写规则，AIBOX 负责在本地运行规则。
+
+### 一套工作流覆盖四类内容
+
+| 内容类型 | DS 类型 | AI 写源的最终目标 |
+| --- | --- | --- |
+| 影视 / 番剧 / 电影 / 电视剧 | `video` | 跑通首页、分类、搜索、详情、线路、分集和真实播放地址。 |
+| 小说 | `novel` | 跑通书籍详情、章节目录和首末章正文，返回 AIBOX 可阅读的 `novel://` 结果。 |
+| 漫画 | `comic` | 跑通漫画详情、章节和真实图片，并按需处理 `pics://`、防盗链、代理、WebP 或图片切片。 |
+| 磁力 / BT | `bt` | 返回完整 magnet 或公开 torrent，由 AIBOX 本地 BT 引擎继续处理。 |
+
+Skill 能按证据选择模板继承、HTML、HTML/API 混合、App API、JSON 或 SPA 等实现路线，也可以处理动态域名、Cookie、请求头、POST、签名、解密、简单验证码/OCR、图片代理和海阔规则迁移等场景。它不是“输入一个域名就盲猜选择器”的代码生成器；遇到登录墙、Cloudflare、滑块、DRM、缺失凭据或强风控时，会保留失败证据并停止猜测。
+
+### 安装写源 Skill
+
+1. 从 [aibox-drpy-source 最新 Release](https://github.com/yunwuee/aibox-drpy-source/releases/latest) 下载 `aibox-drpy-source-skill.zip`。
+2. 解压后，把其中的 `aibox-drpy-source` 目录放入 Codex Skills 目录。
+3. 在 Skill 目录执行 `npm ci` 安装依赖，然后重启 Codex 或重新加载 Skills。
+4. 运行 CLI 的 `help` 和 `doctor` 检查安装状态。
+
+Windows 下的安装与检查示例：
+
+```powershell
+Copy-Item .\aibox-drpy-source "$env:USERPROFILE\.codex\skills\aibox-drpy-source" -Recurse -Force
+npm ci --prefix "$env:USERPROFILE\.codex\skills\aibox-drpy-source"
+node "$env:USERPROFILE\.codex\skills\aibox-drpy-source\scripts\aibox-skill-cli.mjs" help
+node "$env:USERPROFILE\.codex\skills\aibox-drpy-source\scripts\aibox-skill-cli.mjs" doctor
+```
+
+macOS、Linux、从 Git 安装、更新和卸载方法见 [完整安装说明](https://github.com/yunwuee/aibox-drpy-source#安装)。
+
+### 直接让 AI 写一个源
+
+安装后，在对话中明确提到 `$aibox-drpy-source`。例如：
+
+```text
+使用 $aibox-drpy-source，为 https://example.com 编写一个影视/番剧 DS 源。
+先获取真实页面和接口证据，再判断站型并生成规则。
+使用真实 ID 跑通首页、分类、详情、搜索和播放，完成 L1/L2/L3 验收。
+把最终源码保存到当前工作区 output/source.js，不要上传或分享。
+```
+
+将内容类型替换为 `novel` 或 `comic`，同一套流程就会改为验证小说目录与正文，或漫画章节与图片。修复已有源时，提供源文件路径、AIBOX 日志和具体失败阶段，AI 会优先保留仍然有效的逻辑，只修复实际断点。
+
+### 为什么要做 L1、L2、L3 验收
+
+| 级别 | 检查内容 | 能证明什么 |
+| --- | --- | --- |
+| L1 | JavaScript 语法、AST、模板、字段和协议契约 | 文件结构正确，具备进入运行测试的基础。 |
+| L2 | 首页、分类、详情、搜索、播放或正文等真实单接口 | 目标站点当前确实返回有效数据。 |
+| L3 | 使用真实分类 ID、作品 ID、章节 ID 或播放 ID 串联完整链路 | 上下游数据可以真正衔接，而不是每个接口孤立通过。 |
+
+只有 L1 通过并不等于源可用。影视应验证真实播放结果，小说应验证首末章正文，漫画应验证首末章首尾图片和文件头；最终仍建议把生成的 `.js` 文件导入 AIBOX，在实际设备和网络环境中验收。
+
+Skill CLI 还提供 `triage`、`compose`、`lint`、`check`、`heal`、`save`、`share`、`hiker-import`、`debug-selector` 等命令。`heal --apply` 会修改文件，`share` 会上传源码，因此 Agent 只应在用户明确允许时执行。完整命令、提示词和能力边界请查看 [aibox-drpy-source 自述文件](https://github.com/yunwuee/aibox-drpy-source#readme)。
 
 ## 播放器
 
@@ -166,7 +239,7 @@ AIBOX 提供基于 `flutter_inappwebview` 的内置浏览器，适合访问来�
 
 ## drpy 源管理
 
-AIBOX 内置本地 drpy-node 引擎，用来运行用户导入的内容规则。源规则不是 AIBOX 固定绑定的站点列表，用户可以按需要维护自己的来源。
+AIBOX 内置本地 drpy-node 引擎，用来运行用户导入的内容规则。源规则不是 AIBOX 固定绑定的站点列表，用户可以按需要维护自己的来源；需要从目标网站创建或修复 DS 源时，可以使用上面的 [aibox-drpy-source AI 写源流程](#用-ai-写源影视小说与漫画一网打尽)。
 
 ### 支持的源类型
 
@@ -192,7 +265,7 @@ AIBOX 内置本地 drpy-node 引擎，用来运行用户导入的内容规则。
 - 信息不足时手动选择分组和内容类型，不把不确定的规则静默放错位置。
 - 启用、停用、排序、分组、重命名和删除来源。
 - 编辑规则源码，查看规则预览并运行选择器测试。
-- 使用在线写源 IDE 创建或修改 drpy 规则。
+- 使用在线写源 IDE 创建或修改 drpy 规则，也可以导入 AI Skill 生成并已完成验收的单文件 DS 源。
 - 分享规则文件，或从源操作菜单进入网站首页、编辑、重新下载和删除。
 - 处理 JS 规则依赖的 `_lib*.js` 等辅助文件（以当前规则包声明为准）。
 
